@@ -13,7 +13,8 @@ Verifica se os plugins estão atualizados; você pode encontrá-los no arquivo '
 
 Provisionamento da Instância EC2
 
-No arquivo 'instances.tf' que criei, você encontrará a configuração para uma instância Amazon Linux 2023 AMI 64-bit. Uma AMI é um modelo pronto utilizado para lançar servidores virtuais na nuvem da AWS.
+No arquivo 'instances.tf' que criei, você encontrará a configuração para uma instância Amazon Linux 2023 AMI 64-bit e descrições de um script bash que será executado durante a inicialização da instância. Ele cria diretórios específicos na pasta /home/ubuntu.
+Uma AMI é um modelo pronto utilizado para lançar servidores virtuais na nuvem da AWS.
 
 Após definir as configurações, utilize o comando terraform plan. Esse comando é crucial, pois permite visualizar as mudanças planejadas na infraestrutura antes de aplicá-las. Ele analisa os arquivos de configuração, compara o estado atual da infraestrutura com a configuração desejada e lista as ações que serão executadas, como criar, modificar ou destruir recursos.
 

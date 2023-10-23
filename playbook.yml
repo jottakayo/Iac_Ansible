@@ -1,0 +1,10 @@
+---
+- hosts: terraform-ansible
+  tasks:
+    - name: Alterando arquivo.
+      copy:
+        dest: /home/ubuntu/index.html
+        content: "<h1>Feito com terraform e ansible, zona de test</h1>"
+
+    - name: Criando um diretório Test0
+      shell: "mkdir Test0"
