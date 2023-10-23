@@ -1,33 +1,75 @@
-Olá gente, de forma básica irei expor o que fiz para
-Provisionar uma Instância EC2 na AWS usando Terraforme e preparar a VM com python3
+Provisionamento de Instância EC2 com Terraform e Configuração com Ansible
 
-Este guia apresenta os passos para configurar o provedor AWS e provisionar uma instância EC2 utilizando Terraform.Porém anteriormente é necessário preparar o ambiente AWS primeiro.
+Este guia oferece um passo a passo para provisionar uma instância EC2 na AWS utilizando Terraform e prepará-la usando Ansible. Antes de começar, assegure-se de que o ambiente AWS esteja configurado corretamente.
 
 Configuração do Provedor AWS
 
-Primeiro, é necessário configurar o provedor AWS. Você pode encontrar informações detalhadas e exemplos de configuração no site da Terraform.io. O próprio site é muito explicativo então é recomendável seguir as orientações fornecidas no site, pois ele é regularmente atualizado.
+Antes de tudo, é necessário configurar o provedor AWS. Consulte a documentação oficial da Terraform para detalhes e exemplos de configuração.
 
-Após obter as configurações desejadas, execute o comando terraform init no seu terminal. Este comando inicializa o projeto, baixando os plugins necessários e preparando o ambiente para criar e gerenciar recursos de infraestrutura.
+Após obter as configurações desejadas, inicialize o projeto com o comando:
 
-Verifica se os plugins estão atualizados; você pode encontrá-los no arquivo '.terraform.lock.hcl'.
+shell
+Copy code
+terraform init
+Este comando baixa os plugins necessários e prepara o ambiente para criar e gerenciar recursos de infraestrutura. Certifique-se de que os plugins estão atualizados; você pode encontrá-los no arquivo .terraform.lock.hcl.
 
 Provisionamento da Instância EC2
 
-No arquivo 'instances.tf' que criei, você encontrará a configuração para uma instância Amazon Linux 2023 AMI 64-bit e descrições de um script bash que será executado durante a inicialização da instância. Ele cria diretórios específicos na pasta /home/ubuntu.
-Uma AMI é um modelo pronto utilizado para lançar servidores virtuais na nuvem da AWS.
+No arquivo instances.tf, você encontrará a configuração para uma instância Amazon Linux 2023 AMI 64-bit. Ele também inclui um script bash que será executado durante a inicialização da instância, criando diretórios específicos na pasta /home/ubuntu.
 
-Após definir as configurações, utilize o comando terraform plan. Esse comando é crucial, pois permite visualizar as mudanças planejadas na infraestrutura antes de aplicá-las. Ele analisa os arquivos de configuração, compara o estado atual da infraestrutura com a configuração desejada e lista as ações que serão executadas, como criar, modificar ou destruir recursos.
+Após definir as configurações, utilize o comando terraform plan para visualizar as mudanças planejadas na infraestrutura antes de aplicá-las. Este comando é crucial para entender as alterações que serão feitas.
 
-Após revisar o plano, você pode implementar as configurações na AWS usando o comando terraform apply. Isso aplica as alterações e provisiona a máquina nos servidores da AWS.
+shell
+Copy code
+terraform plan
+Após revisar o plano, aplique as configurações com o comando:
 
-Agora a instância EC2 está pronta para uso nos servidores da AWS.
+shell
+Copy code
+terraform apply
+Este comando implementa as alterações e provisiona a máquina na AWS.
 
-Apos feito a VM utilizo dois arquivos para esta gerenciando a VM com ansible:
+Configuração e Gerenciamento com Ansible
 
-hosts.yml é um arquivo de inventário do Ansible. Ele lista os hosts nos quais você deseja executar as tarefas do Ansible, juntamente com informações de SSH e IP( IMPORTANTE MANTER A INDENTAÇÃO CORRETA DE ACORDO COM OS DOCUMENTAÇÃO DO SITE DA ANSIBLE https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html)
-playbook.yml é um arquivo de playbook do Ansible. Ele contém uma lista de tarefas que devem ser executadas nos hosts listados no arquivo de inventário (hosts.yml).
+Após a criação da VM, use Ansible para configurá-la. Dois arquivos são essenciais para este processo:
 
-E com o comando executável playbook para o AMI ubuntu "playbook.yml -u ubuntu --private-key iac_code_key.pem -i hosts.yml" conseguimos atualizar nossa VM e prepara-la sem destruir-la em nossa cloud da AWS.
+hosts.yml
+Este arquivo de inventário do Ansible lista os hosts nos quais você deseja executar tarefas. Certifique-se de manter a indentação correta de acordo com a documentação do Ansible.
 
+yaml
+Copy code
+---
+all:
+  hosts:
+    ec2-instance:
+      ansible_host: <IP_DA_INSTANCIA>
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: /caminho/para/iac_code_key.pem
+playbook.yml
+Este arquivo de playbook do Ansible contém tarefas que serão executadas nos hosts listados no arquivo de inventário.
 
+yaml
+Copy code
+---
+- name: Configuração da Instância EC2
+  hosts: ec2-instance
+  become: yes
+  tasks:
+    - name: Atualizar cache do apt
+      become: yes
+      apt:
+        update_cache: yes
 
+    - name: Instalar pacotes necessários
+      become: yes
+      apt:
+        name: python3
+        state: present
+Finalmente, execute o playbook com o seguinte comando:
+
+shell
+Copy code
+ansible-playbook -i hosts.yml playbook.yml
+Agora, sua instância EC2 está configurada e pronta para uso.
+
+⌨️ com ❤️ por Seu Nome 😊
