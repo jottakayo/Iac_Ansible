@@ -6,7 +6,7 @@
 
 Este guia oferece um passo a passo para provisionar uma instância EC2 na AWS utilizando Terraform e prepará-la usando Ansible. Antes de começar, assegure-se de que o ambiente AWS esteja configurado corretamente.
 
-Consulte **[Terraform](https://developer.hashicorp.com/terraform?product_intent=terraform)****[Ansible](hhttps://www.ansible.com)** para saber como implantar o projeto.
+Consulte **[Terraform](https://developer.hashicorp.com/terraform?product_intent=terraform)** **[Ansible](hhttps://www.ansible.com)** para saber como implantar o projeto.
 
 ### 📋 Configuração do Provedor AWS
 
