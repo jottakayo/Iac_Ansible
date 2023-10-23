@@ -13,7 +13,7 @@ provider "aws" {
   region  = "us-east-1"
 }
 # Resource para criar uma instância AWS usando uma AMI específica
-resource "aws_instance" "code_iac" {
+resource "aws_instance" "code_iac_ansible" {
   # ID da AMI que será usada para a instância
   ami           = "ami-0fc5d935ebf8bc3bc"
 
@@ -25,6 +25,6 @@ resource "aws_instance" "code_iac" {
 
   # Tags para identificar e organizar a instância
   tags = {
-    Name = "code_iac"
+    Name = "code_iac_ansible"
   }
 }

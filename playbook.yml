@@ -14,14 +14,20 @@
 
   tasks:
     # Altera o conteúdo do arquivo `index.html` no diretório `/home/ubuntu`.
-    - name: Alterando arquivo.
+    - name: Changing files.
       copy:
         dest: /home/ubuntu/index.html
-        content: "<h1>Feito com terraform e ansible, zona de test</h1>"
+        content: "<h1>Made with terraform and ansible, test zone</h1>"
       # O arquivo `index.html` é um arquivo HTML que será alterado.
       # O conteúdo do arquivo será alterado para o texto especificado.
 
     # Cria um diretório chamado `Test0` no diretório `/home/ubuntu`.
-    - name: Criando um diretório Test0
+    - name: Creating a dictery test0
       shell: "mkdir Test0"
       # O diretório `Test0` será criado no diretório `/home/ubuntu`.
+      - name: Install python3.
+        apt:
+          pkg:
+          - python3
+          update_cache: yes
+        become: yes
