@@ -1,6 +1,6 @@
 # Título do projeto
 
-rovisionamento de Instância EC2 com Terraform e Configuração com Ansible
+## Provisionamento de Instância EC2 com Terraform e Configuração com Ansible
 
 ## 🚀 Começando
 
