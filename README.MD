@@ -1,5 +1,5 @@
 Olá gente, de forma básica irei expor o que fiz para
-Provisionar uma Instância EC2 na AWS usando Terraform
+Provisionar uma Instância EC2 na AWS usando Terraforme e preparar a VM com python3
 
 Este guia apresenta os passos para configurar o provedor AWS e provisionar uma instância EC2 utilizando Terraform.Porém anteriormente é necessário preparar o ambiente AWS primeiro.
 
@@ -20,5 +20,14 @@ Após definir as configurações, utilize o comando terraform plan. Esse comando
 
 Após revisar o plano, você pode implementar as configurações na AWS usando o comando terraform apply. Isso aplica as alterações e provisiona a máquina nos servidores da AWS.
 
-Agora a instância EC2 está pronta para uso nos servidores da AWS. Olhe e revise para manter suas configurações conforme necessário para atender aos requisitos do seu projeto ^^.
+Agora a instância EC2 está pronta para uso nos servidores da AWS.
+
+Apos feito a VM utilizo dois arquivos para esta gerenciando a VM com ansible:
+
+hosts.yml é um arquivo de inventário do Ansible. Ele lista os hosts nos quais você deseja executar as tarefas do Ansible, juntamente com informações de SSH e IP( IMPORTANTE MANTER A INDENTAÇÃO CORRETA DE ACORDO COM OS DOCUMENTAÇÃO DO SITE DA ANSIBLE https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html)
+playbook.yml é um arquivo de playbook do Ansible. Ele contém uma lista de tarefas que devem ser executadas nos hosts listados no arquivo de inventário (hosts.yml).
+
+E com o comando executável playbook para o AMI ubuntu "playbook.yml -u ubuntu --private-key iac_code_key.pem -i hosts.yml" conseguimos atualizar nossa VM e prepara-la sem destruir-la em nossa cloud da AWS.
+
+
 

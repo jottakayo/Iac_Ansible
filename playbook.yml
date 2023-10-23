@@ -25,6 +25,7 @@
     - name: Creating a dictery test0
       shell: "mkdir Test0"
       # O diretório `Test0` será criado no diretório `/home/ubuntu`.
+      # Instalação do Python 3 usando o módulo 'apt'.
       - name: Install python3.
         apt:
           pkg:
