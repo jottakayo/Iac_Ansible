@@ -17,7 +17,7 @@ Após obter as configurações desejadas, inicialize o projeto com o comando:
 ```
 terraform init
 ```
-Este comando baixa os plugins necessários e prepara o ambiente para criar e gerenciar recursos de infraestrutura. Certifique-se de que os plugins estão atualizados; você pode encontrá-los no arquivo .terraform.lock.hcl.
+Este comando baixa os plugins necessários e prepara o ambiente para criar e gerenciar recursos de infraestrutura. Certifique-se de que os plugins estão atualizados; você pode encontrá-los no seu arquivo que sera gerado no seu repositorio após o git init .terraform.lock.hcl.
 
 ### 🔧 Provisionamento da Instância EC2
 
